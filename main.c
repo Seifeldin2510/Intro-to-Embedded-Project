@@ -21,11 +21,10 @@ int main(void){
 	
 	///Tesha8al el Ultrasonic
 	uart0_init();
-	uint32_t time;
 	uint32_t distance;
 	char mesg[20]; 
 	while(1){
-
+		distance = get_distance();s
 		sprintf(mesg, "\r\nDistance = %d cm", distance); /*convert float type distance data into string */
 		print_message_uart0(mesg);
 		Delay(2000);
@@ -34,7 +33,9 @@ int main(void){
 }
 
 int get_distance(){
-			Timer0ACapture_init();
+		Timer0ACapture_init();
+		uint32_t time;
+		uint32_t distance;
 		time = Measure_distance(); /* take pulse duration measurement */ 
 		distance = (time * 10625)/10000000; /* convert pulse duration into distance */
 }

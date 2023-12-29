@@ -80,3 +80,12 @@ uint32_t Measure_distance(void)
 		}
 	}
 }
+
+
+uint32_t get_distance(){
+		Timer0ACapture_init();
+		uint32_t time;
+		uint32_t distance;
+		time = Measure_distance(); /* take pulse duration measurement */ 
+		distance = (time * 10625)/10000000; /* convert pulse duration into distance */
+}
