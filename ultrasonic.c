@@ -1,6 +1,14 @@
 #include "ultrasonic.h"
+#include "uart0.h"
 #include "stdint.h"
+#include "stdbool.h"
+#include "bluetooth.h"
 #include "tm4cstruct.h"
+
+
+int LAST_EDGE;
+bool DA5AL_ABL_KEDA;
+
 
 /* Timer0A initialization function */
 /* Initialize Timer0A in input-edge time mode with up-count mode */
@@ -14,7 +22,7 @@ void Timer0ACapture_init(void)
     GPIOB->AFSEL |= 0x40;       /* use PB6 alternate function */
     GPIOB->PCTL &= ~0x0F000000;  /* configure PB6 for T0CCP0 */
     GPIOB->PCTL |= 0x07000000;
-    
+   
 	  /* PB2 as a digital output signal to provide trigger signal */
 	  SYSCTL->RCGCGPIO |= 1;      /* enable clock to PORTA */
 	  GPIOA->DIR |=(1<<4);         /* set PB2 as a digial output pin */
@@ -24,7 +32,9 @@ void Timer0ACapture_init(void)
     TIMER0->CFG = 4;            /* 16-bit timer mode */
     TIMER0->TAMR = 0x17;        /* up-count, edge-time, capture mode */
     TIMER0->CTL |=0x0C;        /* capture the rising edge */
+		TIMER0->IMR |=(1<<2);
     TIMER0->CTL |= (1<<0);           /* enable timer0A */
+		
 }
 
 /* Create one microsecond second delay using Timer block 1 and sub timer A */
@@ -54,38 +64,38 @@ void Delay(unsigned long counter)
 	for(i=0; i< counter*1000; i++);
 }
 
-uint32_t Measure_distance(void)
+void Measure_distance(void)
 {
     int lastEdge, thisEdge;
-	
+		DA5AL_ABL_KEDA = false;
 	  /* Given 10us trigger pulse */
 	  GPIOA->DATA &= ~(1<<4); /* make trigger  pin high */
 	  Delay_MicroSecond(10); /*10 seconds delay */
 	  GPIOA->DATA |= (1<<4); /* make trigger  pin high */
 	  Delay_MicroSecond(10); /*10 seconds delay */
 	  GPIOA->DATA &= ~(1<<4); /* make trigger  pin low */
+}
 
- 	while(1)
-	{
-    TIMER0->ICR = 4;            /* clear timer0A capture flag */
-    while((TIMER0->RIS & 4) == 0) ;    /* wait till captured */
-	  if(GPIOB->DATA & (1<<6)) /*check if rising edge occurs */
-		{
-    lastEdge = TIMER0->TAR;     /* save the timestamp */
-		/* detect falling edge */
-    TIMER0->ICR = 4;            /* clear timer0A capture flag */
-    while((TIMER0->RIS & 4) == 0) ;    /* wait till captured */
-    thisEdge = TIMER0->TAR;     /* save the timestamp */
-		return (thisEdge - lastEdge); /* return the time difference */
-		}
+
+void TIMER0A_Handler(){
+		if(!DA5AL_ABL_KEDA){
+			LAST_EDGE = TIMER0->TAR;
+			DA5AL_ABL_KEDA = true;
+			TIMER0->ICR = 4;
+		}else{
+			int thisEdge = TIMER0->TAR;
+			uint32_t diff = thisEdge - LAST_EDGE;
+			int distance = (1062.5 * diff) / 1000000; 
+			char message[20];
+			sprintf(message, "\r\nDistance = %d cm", distance); 
+			bluetooth_write_message(message);
+			print_message_uart0(message);
+			TIMER0->ICR = 4;
+			DA5AL_ABL_KEDA = false;
+			
 	}
+
+
 }
 
 
-uint32_t get_distance(){
-		Timer0ACapture_init();
-		uint32_t time;
-		uint32_t distance;
-		time = Measure_distance(); /* take pulse duration measurement */ 
-		distance = (time * 10625)/10000000; /* convert pulse duration into distance */
-}

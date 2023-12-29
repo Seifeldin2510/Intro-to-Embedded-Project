@@ -18,24 +18,20 @@ int main(void){
 		sprintf(smoke_sensor_message, "\r\nValue = %d ", smoke_sensor_val);
 		print_message_uart0(smoke_sensor_message);
 	}*/
-	
+	__ASM("CPSIE I");
+	NVIC->ISER[0] |= (1<<19);
 	///Tesha8al el Ultrasonic
 	uart0_init();
-	uint32_t distance;
-	char mesg[20]; 
+	bluetooth_init();
 	while(1){
-		distance = get_distance();s
-		sprintf(mesg, "\r\nDistance = %d cm", distance); /*convert float type distance data into string */
-		print_message_uart0(mesg);
+		Timer0ACapture_init();
+		Measure_distance();
 		Delay(2000);
-		
 	}
+	
+	
+
+	
 }
 
-int get_distance(){
-		Timer0ACapture_init();
-		uint32_t time;
-		uint32_t distance;
-		time = Measure_distance(); /* take pulse duration measurement */ 
-		distance = (time * 10625)/10000000; /* convert pulse duration into distance */
-}
+
