@@ -439,6 +439,26 @@
               <FileType>1</FileType>
               <FilePath>.\bluetooth.c</FilePath>
             </File>
+            <File>
+              <FileName>laser.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\laser.c</FilePath>
+            </File>
+            <File>
+              <FileName>laser.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\laser.h</FilePath>
+            </File>
+            <File>
+              <FileName>magnetic_switch.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\magnetic_switch.c</FilePath>
+            </File>
+            <File>
+              <FileName>magnetic_switch.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\magnetic_switch.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

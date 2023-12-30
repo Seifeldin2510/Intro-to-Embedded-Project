@@ -88,8 +88,9 @@ void TIMER0A_Handler(){
 			int distance = (1062.5 * diff) / 1000000; 
 			char message[20];
 			sprintf(message, "\r\nDistance = %d cm", distance); 
-			bluetooth_write_message(message);
-			print_message_uart0(message);
+			//bluetooth_write_message(message);
+			
+			//print_message_uart0(message);
 			TIMER0->ICR = 4;
 			DA5AL_ABL_KEDA = false;
 			
