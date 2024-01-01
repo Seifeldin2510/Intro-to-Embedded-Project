@@ -1,6 +1,10 @@
 #include "tm4cstruct.h"
 #include "magnetic_switch.h"
+#include "laser.h"
 #include "uart0.h"
+#include "stdbool.h"
+
+extern bool MAGNETIC_STATE = false;
 
 void magnetic_switch_init(void){
 		 SYSCTL->RCGCGPIO |= (1<<3);   /* Set bit5 of RCGCGPIO to enable clock to PORTF*/
@@ -23,7 +27,9 @@ void magnetic_switch_init(void){
 }
 
 void GPIOD_Handler(void){
-		print_message_uart0("SUIII");
-		GPIOD->ICR = 1;
-
+	//laser_turn_on('m');	
+	MAGNETIC_STATE = true;
+	GPIOD->ICR = 1;	
+		//print_message_uart0("SUIII");
+		
 }

@@ -27,7 +27,7 @@ Project File Date:  12/30/2023
 <h2>Output:</h2>
 *** Using Compiler 'V6.19', folder: 'C:\Keil_v5\ARM\ARMCLANG\Bin'
 Build target 'TM4C'
-laser.c(1): warning: In file included from...
+main.c(3): warning: In file included from...
 ./tm4cstruct.h(317): warning: // comments are not allowed in this language [-Wcomment]
 //#include "system_TM4C123GH6PM.h"                    /*!< TM4C123GH6PM System                                                   */
 ^
@@ -163,64 +163,160 @@ laser.c(1): warning: In file included from...
 ./tm4cstruct.h(1402): warning: anonymous unions are a C11 extension [-Wc11-extensions]
   union {
   ^
-laser.c(2): warning: In file included from...
+main.c(4): warning: In file included from...
+./tm4c123gh6pm.h(7): warning: // comments are not allowed in this language [-Wcomment]
+#define INT_GPIOA               16          // GPIO Port A
+                                            ^
+main.c(5): warning: In file included from...
+./uart0.h(3): warning: a function declaration without a prototype is deprecated in all versions of C [-Wstrict-prototypes]
+void uart0_init();
+               ^
+                void
+./uart0.h(6): warning: no newline at end of file [-Wnewline-eof]
+void print_message_uart0(char *str);
+                                    ^
+main.c(6): warning: In file included from...
+./adc0.h(1): warning: // comments are not allowed in this language [-Wcomment]
+//Metwasal b PE3
+^
+./adc0.h(3): warning: a function declaration without a prototype is deprecated in all versions of C [-Wstrict-prototypes]
+void adc0_init();
+              ^
+               void
+./adc0.h(4): warning: a function declaration without a prototype is deprecated in all versions of C [-Wstrict-prototypes]
+int get_val_adc0();
+                ^
+                 void
+./adc0.h(4): warning: no newline at end of file [-Wnewline-eof]
+int get_val_adc0();
+                   ^
+main.c(7): warning: In file included from...
 ./laser.h(2): warning: a function declaration without a prototype is deprecated in all versions of C [-Wstrict-prototypes]
 void laser_init();
                ^
                 void
-./laser.h(4): warning: a function declaration without a prototype is deprecated in all versions of C [-Wstrict-prototypes]
-void laser_turn_on();
-                  ^
-                   void
-./laser.h(4): warning: no newline at end of file [-Wnewline-eof]
-void laser_turn_on();
-                     ^
-laser.c(4): warning: a function declaration without a prototype is deprecated in all versions of C [-Wstrict-prototypes]
-void laser_init(){
+main.c(8): warning: In file included from...
+./bluetooth.h(12): warning: no newline at end of file [-Wnewline-eof]
+char bluetooth_read(void);
+                          ^
+main.c(9): warning: In file included from...
+./magnetic_switch.h(3): warning: no newline at end of file [-Wnewline-eof]
+void magnetic_switch_init(void);
+                                ^
+main.c(15): warning: a function declaration without a prototype is deprecated in all versions of C [-Wstrict-prototypes]
+void portf_init();
                ^
                 void
-laser.c(6): warning: & has lower precedence than ==; == will be evaluated first [-Wparentheses]
-        while(SYSCTL->RCGCGPIO & 1 == 0);
-                               ^~~~~~~~
-laser.c(6): note: place parentheses around the '==' expression to silence this warning
-        while(SYSCTL->RCGCGPIO & 1 == 0);
-                               ^
-                                 (     )
-laser.c(6): note: place parentheses around the & expression to evaluate it first
-        while(SYSCTL->RCGCGPIO & 1 == 0);
-              ~~~~~~~~~~~~~~~~~^~~
-laser.c(4): warning: no previous prototype for function 'laser_init' [-Wmissing-prototypes]
-void laser_init(){
+main.c(27): warning: '_Bool' is a C99 extension [-Wc99-extensions]
+bool started = false;
+^
+C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdbool.h(15): note: expanded from macro 'bool'
+    #define bool _Bool
+                 ^
+main.c(27): warning: no previous extern declaration for non-static variable 'started' [-Wmissing-variable-declarations]
+bool started = false;
      ^
-./laser.h(2): note: this declaration is not a prototype; add 'void' to make it a prototype for a zero-parameter function
-void laser_init();
+main.c(27): note: declare 'static' if the variable is not intended to be used outside of this translation unit
+bool started = false;
+^
+C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdbool.h(15): note: expanded from macro 'bool'
+    #define bool _Bool
+                 ^
+main.c(28): warning: no previous extern declaration for non-static variable 'start_status' [-Wmissing-variable-declarations]
+int start_status = 1;
+    ^
+main.c(28): note: declare 'static' if the variable is not intended to be used outside of this translation unit
+int start_status = 1;
+^
+main.c(41): warning: implicit conversion changes signedness: 'int' to 'uint32_t' (aka 'unsigned int') [-Wsign-conversion]
+                smoke_val = get_val_adc0();
+                          ~ ^~~~~~~~~~~~~~
+main.c(44): warning: implicitly declaring library function 'sprintf' with type 'int (char *, const char *, ...)' [-Wimplicit-function-declaration]
+                sprintf(ultrasonic_mesg, "\r\nDistance = %d cm", distance);
+                ^
+main.c(44): note: include the header <stdio.h> or explicitly provide a declaration for 'sprintf'
+main.c(64): warning: a function declaration without a prototype is deprecated in all versions of C [-Wstrict-prototypes]
+void portf_init(){
+               ^
+                void
+main.c(66): warning: empty expression statement has no effect; remove unnecessary ';' to silence this warning [-Wextra-semi-stmt]
+    while((SYSCTL_PRGPIO_R & 0x00000020) == 0){};
+                                                ^
+main.c(64): warning: no previous prototype for function 'portf_init' [-Wmissing-prototypes]
+void portf_init(){
+     ^
+main.c(15): note: this declaration is not a prototype; add 'void' to make it a prototype for a zero-parameter function
+void portf_init();
      ^
                 void
-laser.c(11): warning: a function declaration without a prototype is deprecated in all versions of C [-Wstrict-prototypes]
-void laser_turn_on(){
-                  ^
-                   void
-laser.c(12): warning: // comments are not allowed in this language [-Wcomment]
-        SysTick->LOAD = 15999999; // one second delay relaod value
-                                  ^
-laser.c(11): warning: no previous prototype for function 'laser_turn_on' [-Wmissing-prototypes]
-void laser_turn_on(){
-     ^
-./laser.h(4): note: this declaration is not a prototype; add 'void' to make it a prototype for a zero-parameter function
-void laser_turn_on();
-     ^
-                   void
-laser.c(19): warning: implicit conversion changes signedness: 'int' to 'uint32_t' (aka 'unsigned int') [-Wsign-conversion]
-        GPIOA->DATA = ~(1<<5);
-                    ~ ^~~~~~~
-laser.c(20): warning: no newline at end of file [-Wnewline-eof]
+main.c(81): warning: implicit conversion changes signedness: 'int' to 'unsigned int' [-Wsign-conversion]
+          GPIOA->DATA &= ~(1<<4); /* make trigger  pin high */
+                      ~~ ^~~~~~~
+main.c(85): warning: implicit conversion changes signedness: 'int' to 'unsigned int' [-Wsign-conversion]
+          GPIOA->DATA &= ~(1<<4); /* make trigger  pin low */
+                      ~~ ^~~~~~~
+main.c(93): warning: implicit conversion changes signedness: 'volatile uint32_t' (aka 'volatile unsigned int') to 'int' [-Wsign-conversion]
+    lastEdge = TIMER0->TAR;     /* save the timestamp */
+             ~ ~~~~~~~~^~~
+main.c(97): warning: implicit conversion changes signedness: 'volatile uint32_t' (aka 'volatile unsigned int') to 'int' [-Wsign-conversion]
+    thisEdge = TIMER0->TAR;     /* save the timestamp */
+             ~ ~~~~~~~~^~~
+main.c(98): warning: implicit conversion changes signedness: 'int' to 'uint32_t' (aka 'unsigned int') [-Wsign-conversion]
+                return (thisEdge - lastEdge); /* return the time difference */
+                ~~~~~~  ~~~~~~~~~^~~~~~~~~~
+main.c(110): warning: implicit conversion changes signedness: 'int' to 'unsigned int' [-Wsign-conversion]
+    GPIOB->DIR &= ~0x40;        /* make PB6 an input pin */
+               ~~ ^~~~~
+main.c(113): warning: implicit conversion changes signedness: 'int' to 'unsigned int' [-Wsign-conversion]
+    GPIOB->PCTL &= ~0x0F000000;  /* configure PB6 for T0CCP0 */
+                ~~ ^~~~~~~~~~~
+main.c(121): warning: implicit conversion changes signedness: 'int' to 'unsigned int' [-Wsign-conversion]
+    TIMER0->CTL &= ~1;          /* disable timer0A during setup */
+                ~~ ^~
+main.c(132): warning: declaration shadows a variable in the global scope [-Wshadow]
+void Delay_MicroSecond(int time)
+                           ^
+main.c(22): note: previous declaration is here
+uint32_t time; 
+         ^
+main.c(156): warning: no newline at end of file [-Wnewline-eof]
 }
  ^
-56 warnings generated.
-compiling laser.c...
+main.c(22): warning: no previous extern declaration for non-static variable 'time' [-Wmissing-variable-declarations]
+uint32_t time; 
+         ^
+main.c(22): note: declare 'static' if the variable is not intended to be used outside of this translation unit
+uint32_t time; 
+^
+main.c(23): warning: no previous extern declaration for non-static variable 'distance' [-Wmissing-variable-declarations]
+uint32_t distance; 
+         ^
+main.c(23): note: declare 'static' if the variable is not intended to be used outside of this translation unit
+uint32_t distance; 
+^
+main.c(24): warning: no previous extern declaration for non-static variable 'ultrasonic_mesg' [-Wmissing-variable-declarations]
+char ultrasonic_mesg[20];  
+     ^
+main.c(24): note: declare 'static' if the variable is not intended to be used outside of this translation unit
+char ultrasonic_mesg[20];  
+^
+main.c(25): warning: no previous extern declaration for non-static variable 'smoke_mesg' [-Wmissing-variable-declarations]
+char smoke_mesg[20];
+     ^
+main.c(25): note: declare 'static' if the variable is not intended to be used outside of this translation unit
+char smoke_mesg[20];
+^
+main.c(26): warning: no previous extern declaration for non-static variable 'smoke_val' [-Wmissing-variable-declarations]
+uint32_t smoke_val;
+         ^
+main.c(26): note: declare 'static' if the variable is not intended to be used outside of this translation unit
+uint32_t smoke_val;
+^
+79 warnings generated.
+compiling main.c...
 linking...
-Program Size: Code=10208 RO-data=1228 RW-data=0 ZI-data=616  
-".\Objects\Embedded Project.axf" - 0 Error(s), 56 Warning(s).
+Program Size: Code=9284 RO-data=1260 RW-data=0 ZI-data=672  
+".\Objects\Embedded Project.axf" - 0 Error(s), 79 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -246,9 +342,9 @@ Package Vendor: Keil
    * Component: ARM::CMSIS:CORE:5.6.0
 
    * Component: Keil::Device:Startup:1.0.1
-      Include file:  Device/Include/TM4C123/TM4C123.h
-      Source file:   Device/Source/ARM/startup_TM4C123.s
       Source file:   Device/Source/system_TM4C123.c
+      Source file:   Device/Source/ARM/startup_TM4C123.s
+      Include file:  Device/Include/TM4C123/TM4C123.h
 Build Time Elapsed:  00:00:01
 </pre>
 </body>

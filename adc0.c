@@ -1,4 +1,5 @@
 #include "adc0.h"
+#include "stdbool.h"
 #include "tm4cstruct.h"
 
 void adc0_init(){
