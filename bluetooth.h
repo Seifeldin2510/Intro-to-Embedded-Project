@@ -1,9 +1,4 @@
 
-/*
-Steps:
-- Enable UART5
-- write and read data
-*/
 
 
 void bluetooth_init(void);

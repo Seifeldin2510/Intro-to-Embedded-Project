@@ -21,38 +21,34 @@ void laser_turn_on(char state){
 	switch(state){
 		case 'u':
 				GPIOA->DATA |= (1<<5);
-				SysTick->LOAD = (8000000) - 1; // one second delay relaod value
-				SysTick->CTRL = 5 ; // enable counter and select system bus clock 
-				SysTick->VAL  = 0; //initialize current value register 
+				SysTick->LOAD = (8000000) - 1; 
+				SysTick->CTRL = 5 ; 
+				SysTick->VAL  = 0; 
 				while(!(SysTick->CTRL & 0x10000));
 				x = SysTick->VAL;
 				GPIOA->DATA &= ~(1<<5);
-				//while(!(SysTick->CTRL & 0x10000));
-				//x = SysTick->VAL;
+
 				SysTick->CTRL = 0; 
 		    break;
 		case 'f':
 				GPIOA->DATA |= (1<<5);
-				SysTick->LOAD = (12000000) - 1; // one second delay relaod value
-				SysTick->CTRL = 5 ; // enable counter and select system bus clock 
-				SysTick->VAL  = 0; //initialize current value register 
+				SysTick->LOAD = (12000000) - 1; 
+				SysTick->CTRL = 5 ; 
+				SysTick->VAL  = 0; 
 				while(!(SysTick->CTRL & 0x10000));
 				x = SysTick->VAL;
 				GPIOA->DATA &= ~(1<<5);
-				//while(!(SysTick->CTRL & 0x10000));
-				//x = SysTick->VAL;
+
 				SysTick->CTRL = 0; 
 		    break;
 		case 'm':
 				GPIOA->DATA |= (1<<5);
-				SysTick->LOAD = (16000000) - 1; // one second delay relaod value
-				SysTick->CTRL = 5 ; // enable counter and select system bus clock 
-				SysTick->VAL  = 0; //initialize current value register 
+				SysTick->LOAD = (16000000) - 1; 
+				SysTick->CTRL = 5 ; 
+				SysTick->VAL  = 0; 
 				while(!(SysTick->CTRL & 0x10000));
 				x = SysTick->VAL;
 				GPIOA->DATA &= ~(1<<5);
-				//while(!(SysTick->CTRL & 0x10000));
-				//x = SysTick->VAL;
 				SysTick->CTRL = 0; 
 		    break;
 	}
